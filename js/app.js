@@ -49,10 +49,12 @@ function mostrar(estudiante) {
 function mostrarLista(estudiantes) {
     // TO DO: Iterar la lista del estudiantes para devolverlos en el formato que usa la función mostrar(estudiante)
     // Retornar el template de todos los estudiantes
-    var lista = ""
-    for (var i = 0, limite =estudiantes.length; i < limite; i++) {
-        lista+= mostrar(estudiantes[i]);
-    }
+    var lista = "";
+
+    estudiantes.forEach(function (estudiante){
+      lista+= mostrar(estudiante);
+      return lista;
+    });
 
     return lista;
 }
@@ -66,12 +68,14 @@ function buscar(nombre, estudiantes) {
     nombre = inicioMayuscula + nombre.slice(1).toLowerCase();
     var encontrado = [];
 
-    for (var i = 0, limite = estudiantes.length; i <limite ; i++) {
-      if (estudiantes[i].nombre == nombre){
-        encontrado.push(estudiantes[i]);
+    estudiantes.filter(function(estudiante){
+      if (estudiante.nombre == nombre){
+        encontrado.push(estudiante);
         return encontrado;
       }
-    }
+    });
+
+    return encontrado;
 }
 
 function topTecnico(estudiantes) {
@@ -86,7 +90,7 @@ function topTecnico(estudiantes) {
 function topHSE(estudiantes) {
     // TO DO: Retornar el arreglo de estudiantes ordenado por puntaje de HSE de mayor a menor
     var ordenHSE = estudiantes.sort(function(a,b){
-      return a.puntosHse < b.puntosHse;
+      return b.puntosHse - a.puntosHse;
     });
 
     return ordenHSE;
